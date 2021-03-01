@@ -104,3 +104,4 @@ dist
 .tern-port
 
 # Users file
+*.txt
