@@ -40,12 +40,29 @@ client.on('ready', () => {
     client.say('nouryqt', 'Running');
 });
 
-const users = fs.readFileSync('users.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
+// ################
+
 
 client.on('PRIVMSG', (msg) => {
-    if (msg.messageText.startsWith('()xd')) {
+    if (msg.displayName === 'Nouryqt' &&
+        msg.messageText.startsWith('A Raid Event at Level') && 
+        msg.channelName.toLowerCase() === 'nouryqt') {
+        let users = fs.readFileSync('users.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
         console.log(users)
         client.say(msg.channelName, `RAID DETECTED pajaGIGA 🚨 ${users}`)
+    }
+})
+
+client.on('PRIVMSG', (msg) => {
+    if (msg.messageText.startsWith('()remindme')) {
+        let nameToAdd = msg.displayName.toString()
+        fs.appendFile('users.txt', `\n${nameToAdd}`, function (err) {
+            if (err) {
+                client.say(msg.channelName, 'Something went wrong FeelsBadMan')
+            } else {
+                client.say(msg.channelName, `@${nameToAdd}, I will now remind you when a raid happens :)`)
+            }
+        })
     }
 })
 
