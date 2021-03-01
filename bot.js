@@ -22,7 +22,7 @@ client.use(new Twitch.SlowModeRateLimiter(client, 2));
 // Initialize Client
 client.initialize = async () => {
     await client.join('nouryqt')
-    await client.join('nrybot')
+    await client.join('teischente')
 
     await client.connect();
 };
@@ -44,9 +44,9 @@ client.on('ready', () => {
 
 
 client.on('PRIVMSG', (msg) => {
-    if (msg.displayName === 'Nouryqt' &&
+    if (msg.displayName === 'HuwoBot' &&
         msg.messageText.startsWith('A Raid Event at Level') && 
-        msg.channelName.toLowerCase() === 'nouryqt') {
+        msg.channelName.toLowerCase() === 'teischente') {
         let users = fs.readFileSync('users.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
         console.log(users)
         client.say(msg.channelName, `RAID DETECTED pajaGIGA 🚨 ${users}`)
@@ -54,15 +54,21 @@ client.on('PRIVMSG', (msg) => {
 })
 
 client.on('PRIVMSG', (msg) => {
-    if (msg.messageText.startsWith('()remindme')) {
+    if (msg.messageText.startsWith('()remindme') || msg.messageText.startsWith('()join')) {
         let nameToAdd = msg.displayName.toString()
         fs.appendFile('users.txt', `\n${nameToAdd}`, function (err) {
             if (err) {
                 client.say(msg.channelName, 'Something went wrong FeelsBadMan')
             } else {
-                client.say(msg.channelName, `@${nameToAdd}, I will now remind you when a raid happens :)`)
+                client.say(msg.channelName, `@${nameToAdd}, I will now ping you when a raid happens :)`)
             }
         })
+    }
+})
+
+client.on('PRIVMSG', (msg) => {
+    if (msg.messageText.startsWith('()help')) {
+        client.say(msg.channelName, 'Use ()remindme or ()join to get nofitied of raids!')
     }
 })
 
