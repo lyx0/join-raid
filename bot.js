@@ -54,7 +54,9 @@ client.on('PRIVMSG', (msg) => {
 })
 
 client.on('PRIVMSG', (msg) => {
-    if (msg.messageText.startsWith('()remindme') || msg.messageText.startsWith('()join')) {
+    if (msg.channelName.toLowerCase() === 'teischente' &&
+        msg.messageText.startsWith('()remindme') || 
+        msg.messageText.startsWith('()join')) {
         let nameToAdd = msg.displayName.toString()
         fs.appendFile('users.txt', `\n${nameToAdd}`, function (err) {
             if (err) {
