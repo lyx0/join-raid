@@ -21,7 +21,7 @@ client.use(new Twitch.SlowModeRateLimiter(client, 2));
 
 // Initialize Client
 client.initialize = async () => {
-    await client.join('nouryqt')
+    await client.join('uudelleenkytkeytynyt')
     await client.join('teischente')
 
     await client.connect();
@@ -37,7 +37,7 @@ client.on('close', (error) => {
 // Connection was successful
 client.on('ready', () => {
     console.log('Successfully connected to chat');
-    client.say('nouryqt', 'Running');
+    client.say('uudelleenkytkeytynyt', 'Running');
 });
 
 // ################
@@ -54,9 +54,9 @@ client.on('PRIVMSG', (msg) => {
 })
 
 client.on('PRIVMSG', (msg) => {
-    if (msg.channelName.toLowerCase() === 'teischente' &&
-        msg.messageText.startsWith('()remindme') || 
-        msg.messageText.startsWith('()join')) {
+    if (msg.messageText.startsWith('()remindme') || 
+        msg.messageText.startsWith('()join') &&
+        msg.channelName.toLowerCase() === 'teischente') {
         let nameToAdd = msg.displayName.toString()
         fs.appendFile('users.txt', `\n${nameToAdd}`, function (err) {
             if (err) {
