@@ -70,7 +70,7 @@ client.on('PRIVMSG', (msg) => {
 
 client.on('PRIVMSG', (msg) => {
     if (msg.messageText.startsWith('()help')) {
-        client.say(msg.channelName, 'Use ()remindme or ()join to get nofitied of raids!')
+        client.say(msg.channelName, 'Use ()remindme or ()join to get notified of raids!')
     }
 })
 
