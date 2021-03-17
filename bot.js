@@ -23,6 +23,7 @@ client.use(new Twitch.SlowModeRateLimiter(client, 2));
 client.initialize = async () => {
     await client.join('uudelleenkytkeytynyt')
     await client.join('teischente')
+    await client.join('smaczny')
 
     await client.connect();
 };
@@ -40,15 +41,14 @@ client.on('ready', () => {
     client.say('uudelleenkytkeytynyt', 'Running');
 });
 
-// ################
 
-
+// #teischente
 client.on('PRIVMSG', (msg) => {
     if (msg.displayName === 'HuwoBot' &&
         msg.messageText.startsWith('A Raid Event at Level') && 
         msg.channelName.toLowerCase() === 'teischente') {
-        let users = fs.readFileSync('users.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
-        console.log(users)
+        let users = fs.readFileSync('teischente.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
+        // console.log(users)
         client.say(msg.channelName, `RAID DETECTED pajaGIGA 🚨 ${users}`)
     }
 })
@@ -58,7 +58,33 @@ client.on('PRIVMSG', (msg) => {
         msg.messageText.startsWith('()join')) &&
         msg.channelName.toLowerCase() === 'teischente') {
         let nameToAdd = msg.displayName.toString()
-        fs.appendFile('users.txt', `\n${nameToAdd}`, function (err) {
+        fs.appendFile('teischente.txt', `\n${nameToAdd}`, function (err) {
+            if (err) {
+                client.say(msg.channelName, 'Something went wrong FeelsBadMan')
+            } else {
+                client.say(msg.channelName, `@${nameToAdd}, I will now ping you when a raid happens :)`)
+            }
+        })
+    }
+})
+
+// #smaczny
+client.on('PRIVMSG', (msg) => {
+    if (msg.displayName === 'HuwoBot' &&
+        msg.messageText.startsWith('A Raid Event at Level') &&
+        msg.channelName.toLowerCase() === 'smaczny') {
+        let users = fs.readFileSync('smaczny.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
+        // console.log(users)
+        client.say(msg.channelName, `RAID DETECTED pajaGIGA 🚨 ${users}`)
+    }
+})
+
+client.on('PRIVMSG', (msg) => {
+    if ((msg.messageText.startsWith('()remindme') ||
+        msg.messageText.startsWith('()join')) &&
+        msg.channelName.toLowerCase() === 'smaczny') {
+        let nameToAdd = msg.displayName.toString()
+        fs.appendFile('smaczny.txt', `\n${nameToAdd}`, function (err) {
             if (err) {
                 client.say(msg.channelName, 'Something went wrong FeelsBadMan')
             } else {
