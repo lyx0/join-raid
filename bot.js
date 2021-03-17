@@ -75,7 +75,7 @@ client.on('PRIVMSG', (msg) => {
         msg.channelName.toLowerCase() === 'smaczny') {
         let users = fs.readFileSync('smaczny.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
         // console.log(users)
-        client.say(msg.channelName, `RAID DETECTED pajaGIGA 🚨 ${users}`)
+        client.say(msg.channelName, `RAID DETECTED DinkDonk ${users}`)
     }
 })
 
