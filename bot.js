@@ -24,6 +24,7 @@ client.initialize = async () => {
     await client.join('uudelleenkytkeytynyt')
     await client.join('teischente')
     await client.join('smaczny')
+    await client.join('tuimeep')
 
     await client.connect();
 };
@@ -85,6 +86,33 @@ client.on('PRIVMSG', (msg) => {
         msg.channelName.toLowerCase() === 'smaczny') {
         let nameToAdd = msg.displayName.toString()
         fs.appendFile('smaczny.txt', `\n${nameToAdd}`, function (err) {
+            if (err) {
+                client.say(msg.channelName, 'Something went wrong FeelsBadMan')
+            } else {
+                client.say(msg.channelName, `@${nameToAdd}, I will now ping you when a raid happens :)`)
+            }
+        })
+    }
+})
+
+
+// #TuiMeep
+client.on('PRIVMSG', (msg) => {
+    if (msg.displayName === 'HuwoBot' &&
+        msg.messageText.startsWith('A Raid Event at Level') &&
+        msg.channelName.toLowerCase() === 'tuimeep') {
+        let users = fs.readFileSync('tuimeep.txt').toString().split('\n').filter(u => u).map(u => ' @' + u);
+        // console.log(users)
+        client.say(msg.channelName, `RAID DETECTED DinkDonk ${users}`)
+    }
+})
+
+client.on('PRIVMSG', (msg) => {
+    if ((msg.messageText.startsWith('()remindme') ||
+        msg.messageText.startsWith('()join')) &&
+        msg.channelName.toLowerCase() === 'tuimeep') {
+        let nameToAdd = msg.displayName.toString()
+        fs.appendFile('tuimeep.txt', `\n${nameToAdd}`, function (err) {
             if (err) {
                 client.say(msg.channelName, 'Something went wrong FeelsBadMan')
             } else {
