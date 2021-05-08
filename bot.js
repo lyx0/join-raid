@@ -6,7 +6,7 @@ require('dotenv').config();
 const client = new Twitch.ChatClient({
     username: process.env.TWITCH_USER,
     password: process.env.TWITCH_PASSWORD,
-    rateLimits: 'default',
+    rateLimits: 'verifiedBot',
     ignoreUnhandledPromiseRejections: 'true',
 });
 
