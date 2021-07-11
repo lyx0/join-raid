@@ -161,7 +161,8 @@ client.on('PRIVMSG', (msg) => {
 // #kian
 client.on('PRIVMSG', (msg) => {
     if (msg.displayName === 'smthy__' || 
-    msg.displayName === 'PieLadder') {
+    msg.displayName === 'PieLadder' || 
+    msg.displayName === 'ViloxOW') {
         return;
     }
     else if (
