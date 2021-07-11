@@ -160,7 +160,11 @@ client.on('PRIVMSG', (msg) => {
 
 // #kian
 client.on('PRIVMSG', (msg) => {
-    if (
+    if (msg.displayName === 'smthy__' || 
+    msg.displayName === 'PieLadder') {
+        return;
+    }
+    else if (
         msg.displayName === 'HuwoBot' &&
         msg.messageText.startsWith('A Raid Event at Level') &&
         msg.channelName.toLowerCase() === 'kian'
